@@ -10,7 +10,7 @@ body{
     font-family:Arial, sans-serif;
     overflow:hidden;
     text-align:center;
-    color:#ff2e8a; /* FIXED */
+    color:#ff2e8a;
     text-shadow:0 0 10px #ff99cc, 0 0 20px #ff66b3;
     font-weight:bold;
     animation:gradientShift 10s infinite alternate;
@@ -62,14 +62,13 @@ body{
 button{
     padding:12px 25px;
     font-size:16px;
-    border:2px solid black;   
+    border:2px solid black;
     border-radius:25px;
     background:white;
     color:#ff4d88;
     cursor:pointer;
     margin:10px;
     transition:0.3s ease;
-    
     box-shadow:
         0 0 8px #ff4d88,
         0 0 16px #ff99cc,
@@ -82,6 +81,30 @@ button:hover{
         0 0 12px #ff4d88,
         0 0 25px #ff66b3,
         0 0 40px #ff1493;
+}
+
+/* Back button */
+.backBtn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    padding:8px 18px;
+    font-size:14px;
+    border:2px solid black;
+    border-radius:20px;
+    background:#ffe6f2;
+    color:#ff2e8a;
+    z-index:1000;
+    box-shadow:
+        0 0 6px #ff66b3,
+        0 0 14px #ff99cc;
+}
+
+.backBtn:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 12px #ff1493,
+        0 0 25px #ff66b3;
 }
 
 .glowHeart{
@@ -133,6 +156,7 @@ for(let i=0;i<20;i++){
 </div>
 
 <div id="lock" class="screen">
+    <button class="backBtn" onclick="switchScreen('lock','welcome')">←</button>
     <h2>Enter Password 💌</h2>
     <input type="password" id="password" placeholder="00000000">
     <button onclick="unlock()">Unlock</button>
@@ -140,10 +164,12 @@ for(let i=0;i<20;i++){
 </div>
 
 <div id="gameScreen" class="screen">
+    <button class="backBtn" onclick="switchScreen('gameScreen','lock')">←</button>
     <h2>Click 5 Hearts 💖</h2>
 </div>
 
 <div id="intro" class="screen">
+    <button class="backBtn" onclick="switchScreen('intro','gameScreen')">←</button>
     <h2>
     I don’t know when it happened… <br><br>
     but somewhere between our conversations, <br>
@@ -156,6 +182,7 @@ for(let i=0;i<20;i++){
 </div>
 
 <div id="question" class="screen">
+    <button class="backBtn" onclick="switchScreen('question','intro')">←</button>
     <h2>Will you be my Valentine? 💖</h2>
     <button onclick="yes()">Yes</button>
     <button id="noBtn" onclick="runNo()">No</button>
@@ -163,6 +190,7 @@ for(let i=0;i<20;i++){
 </div>
 
 <div id="yesScreen" class="screen">
+    <button class="backBtn" onclick="switchScreen('yesScreen','question')">←</button>
     <h2>
     You just unlocked lifetime access to me. 😌💖 <br><br>
     Free subscription includes:<br>
@@ -180,6 +208,7 @@ for(let i=0;i<20;i++){
 </div>
 
 <div id="noScreen" class="screen">
+    <button class="backBtn" onclick="switchScreen('noScreen','question')">←</button>
     <h2>
     That’s okay.<br><br>
     I just wanted to be honest about how I feel.<br>
@@ -193,7 +222,7 @@ for(let i=0;i<20;i++){
 
 let unlocked=false;
 let noCount=0;
-let heartsClicked=0;  // FIXED
+let heartsClicked=0;
 
 const tapMessages=[
 "You matter more than you know.",
@@ -213,13 +242,11 @@ function switchScreen(hide,show){
     document.getElementById(show).classList.add("active");
 }
 
-function goLock(){
-    switchScreen("welcome","lock");
-}
+function goLock(){ switchScreen("welcome","lock"); }
 
 function unlock(){
     if(document.getElementById("password").value==="31122025"){
-        unlocked=true;  // FIXED
+        unlocked=true;
         switchScreen("lock","gameScreen");
         createHearts();
     } else {
@@ -228,6 +255,7 @@ function unlock(){
 }
 
 function createHearts(){
+    heartsClicked=0;
     for(let i=0;i<12;i++){
         let heart=document.createElement("div");
         heart.innerHTML="💖";
