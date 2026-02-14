@@ -83,6 +83,34 @@ button:hover{
         0 0 40px #ff1493;
 }
 
+    /* Password box styling - bigger, centered, glowing */
+#lock input {
+    width: 400px;           /* wider box */
+    padding: 18px 20px;     /* taller and roomy */
+    font-size: 20px;        /* bigger text */
+    border-radius: 12px;
+    text-align: center;
+    border: 3px solid black;
+    background: white;
+    color: #ff4d88;
+    font-weight: bold;
+    box-shadow:
+        0 0 8px #ff4d88,
+        0 0 16px #ff99cc,
+        0 0 24px #ff66b3;
+    transition: 0.3s ease;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#lock input:focus {
+    outline: none;
+    box-shadow:
+        0 0 12px #ff4d88,
+        0 0 25px #ff99cc,
+        0 0 40px #ff1493;
+}
 /* Back button */
 .backBtn{
     position:absolute;
