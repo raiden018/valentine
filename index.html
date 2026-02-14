@@ -294,7 +294,22 @@ const dramaLines = [
     "This is illegal behavior.",
     "Reconsider. I’m fragile.",
     "You’re playing with fire now.",
-    "Final warning. Choose wisely. 😌"
+    "You’re really committed to this huh?",
+    "This is getting concerning.",
+    "Blink twice if you need help.",
+    "You’re fighting destiny.",
+    "The universe is watching.",
+    "This is your villain arc.",
+    "Why are you like this.",
+    "Still pressing it?",
+    "You impress me honestly.",
+    "My patience is legendary.",
+    "We both know you want Yes.",
+    "This is emotional cardio.",
+    "Are you farming achievements?",
+    "Touch grass.",
+    "You almost there.",
+    "Final warning. Last chance. 😌"
 ];
 
 function runNo() {
@@ -302,13 +317,11 @@ function runNo() {
     const drama = document.getElementById("drama");
     const noBtn = document.getElementById("noBtn");
 
-    if (noClickCount < 10) {
+    if (noClickCount < 25) {
 
-        // Show dramatic message
-        drama.innerText = dramaLines[noClickCount];
+        drama.innerText = dramaLines[noClickCount % dramaLines.length];
         drama.style.marginTop = "20px";
 
-        // Make button move but stay inside screen
         const btnWidth = noBtn.offsetWidth;
         const btnHeight = noBtn.offsetHeight;
 
@@ -325,11 +338,9 @@ function runNo() {
         noClickCount++;
 
     } else {
-    
         switchScreen("question", "noScreen");
     }
 }
-
 
 function confetti(){
 for(let i=0;i<40;i++){
@@ -338,7 +349,7 @@ c.innerHTML=["💖","✨","🌸"][Math.floor(Math.random()*3)];
 c.style.position="absolute";
 c.style.left="50%";
 c.style.top="50%";
-c.style.fontSize="25px";
+c.style.fontSize="05px";
 c.style.transform=`translate(${Math.random()*500-250}px,${Math.random()*500-250}px)`;
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),1500);
