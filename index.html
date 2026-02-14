@@ -10,7 +10,7 @@ body{
     font-family:Arial, sans-serif;
     overflow:hidden;
     text-align:center;
-    color:ff2e8a;
+    color:#ff2e8a; /* FIXED */
     text-shadow:0 0 10px #ff99cc, 0 0 20px #ff66b3;
     font-weight:bold;
     animation:gradientShift 10s infinite alternate;
@@ -18,14 +18,12 @@ body{
     background-size:400% 400%;
 }
 
-/* Gradient animation */
 @keyframes gradientShift{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
 
-/* Floating background hearts */
 .bg-heart{
     position:absolute;
     font-size:20px;
@@ -34,8 +32,16 @@ body{
 }
 
 @keyframes floatUp{
-    0%{transform:translateY(100vh) scale(1);}
-    100%{transform:translateY(-10vh) scale(1.5);}
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+.float-msg{
+    position:absolute;
+    font-weight:bold;
+    color:black;
+    text-shadow:0 0 5px white;
+    pointer-events:none;
 }
 
 .screen{
@@ -106,7 +112,6 @@ input{
 </head>
 <body>
 
-<!-- Floating hearts background -->
 <script>
 for(let i=0;i<20;i++){
     let h=document.createElement("div");
@@ -118,13 +123,11 @@ for(let i=0;i<20;i++){
 }
 </script>
 
-<!-- OPENING -->
 <div id="welcome" class="screen active">
     <h1>Hello Pookie 💖</h1>
     <button onclick="goLock()">Enter</button>
 </div>
 
-<!-- PASSWORD -->
 <div id="lock" class="screen">
     <h2>Enter Password 💌</h2>
     <input type="password" id="password" placeholder="00000000">
@@ -132,12 +135,10 @@ for(let i=0;i<20;i++){
     <p id="error"></p>
 </div>
 
-<!-- HEART GAME -->
 <div id="gameScreen" class="screen">
     <h2>Click 5 Hearts 💖</h2>
 </div>
 
-<!-- MESSAGE -->
 <div id="intro" class="screen">
     <h2>
     I don’t know when it happened… <br><br>
@@ -150,7 +151,6 @@ for(let i=0;i<20;i++){
     <button onclick="ask()">Continue</button>
 </div>
 
-<!-- QUESTION -->
 <div id="question" class="screen">
     <h2>Will you be my Valentine? 💖</h2>
     <button onclick="yes()">Yes</button>
@@ -158,7 +158,6 @@ for(let i=0;i<20;i++){
     <p id="drama"></p>
 </div>
 
-<!-- YES -->
 <div id="yesScreen" class="screen">
     <h2>
     You just unlocked lifetime access to me. 😌💖 <br><br>
@@ -171,26 +170,26 @@ for(let i=0;i<20;i++){
     </h2>
 
     <div class="glowHeart" onclick="showSecret()">💖</div>
-    <div id="secret" style="display:none; font-weight:bold;">
+    <div id="secret">
         I cried that day because I realised how much you matter.
     </div>
 </div>
-<!-- NO -->
+
 <div id="noScreen" class="screen">
     <h2>
     That’s okay.<br><br>
     I just wanted to be honest about how I feel.<br>
     You still mean a lot to me,<br>
     and I’m grateful you’re in my life. <br>
-        I no pressure on you but..... let me wait for that someday ?
+    I no pressure on you but..... let me wait for that someday ?
     </h2>
 </div>
-
 
 <script>
 
 let unlocked=false;
 let noCount=0;
+let heartsClicked=0;  // FIXED
 
 const tapMessages=[
 "You matter more than you know.",
@@ -205,7 +204,6 @@ const tapMessages=[
 "I’m grateful for you every day."
 ];
 
-
 function switchScreen(hide,show){
     document.getElementById(hide).classList.remove("active");
     document.getElementById(show).classList.add("active");
@@ -217,6 +215,7 @@ function goLock(){
 
 function unlock(){
     if(document.getElementById("password").value==="31122025"){
+        unlocked=true;  // FIXED
         switchScreen("lock","gameScreen");
         createHearts();
     } else {
@@ -244,38 +243,21 @@ function createHearts(){
     }
 }
 
-function ask(){
-    switchScreen("intro","question");
-}
+function ask(){ switchScreen("intro","question"); }
 
 function yes(){
     switchScreen("question","yesScreen");
+    confetti();
 }
 
 function runNo(){
     let btn=document.getElementById("noBtn");
     noCount++;
 
-    if(noCount<=10){
-        btn.classList.add("vibrate");
-
-        btn.style.position="absolute";
-        btn.style.top=Math.random()*80+"%";
-        btn.style.left=Math.random()*80+"%";
-        btn.style.transform="scale("+(1-noCount*0.07)+")";
-
-        document.getElementById("drama").innerText=
-        ["Are you sure? 🥺",
-         "Think again 😭",
-         "Don’t break my heart",
-         "Be nice 😔",
-         "Still no?",
-         "Come onnn",
-         "You’re hurting me",
-         "Last chance 👀",
-         "Okay okay wait",
-         "Fine… I tried."][noCount-1];
-    }
+    btn.classList.add("vibrate");
+    btn.style.position="absolute";
+    btn.style.top=Math.random()*80+"%";
+    btn.style.left=Math.random()*80+"%";
 
     if(noCount===11){
         switchScreen("question","noScreen");
