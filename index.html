@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>For DHYANA 💖</title>
+<title>For Pookie 💖</title>
 
 <style>
 body{
@@ -10,7 +10,6 @@ body{
     font-family:Arial, sans-serif;
     overflow:hidden;
     text-align:center;
-    color:black;
     animation:gradientShift 10s infinite alternate;
     background:linear-gradient(-45deg,#ff9ec4,#ff80bf,#ffb6da,#ffcce6);
     background-size:400% 400%;
@@ -20,28 +19,6 @@ body{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
-}
-
-.bg-heart{
-    position:absolute;
-    font-size:4vw;
-    animation:floatUp 8s linear infinite;
-    opacity:0.7;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(100vh) scale(1);}
-    100%{transform:translateY(-10vh) scale(1.5);}
-}
-
-.float-msg{
-    position:absolute;
-    font-size:4vw;
-    opacity:0.9;
-    font-weight:bold;
-    color:black;
-    pointer-events:none;
-    text-shadow: 0 0 8px white;
 }
 
 .screen{
@@ -60,118 +37,90 @@ body{
 .active{ display:flex; }
 
 button{
-    padding:4vw 8vw;
-    font-size:4vw;
+    padding:12px 25px;
+    font-size:16px;
     border:none;
-    border-radius:10vw;
+    border-radius:30px;
     background:white;
     color:#ff4d88;
     cursor:pointer;
-    margin:2vw;
+    margin:10px;
     transition:0.3s;
-    min-width:30vw;
-    box-shadow: 0 0 10px #ff4d88, 0 0 20px #ff99c8;
+    box-shadow:0 0 10px #ff4d88;
 }
 
 button:hover{ transform:scale(1.1); }
 
 input{
-    padding:2vw;
-    border-radius:5vw;
+    padding:10px;
+    border-radius:20px;
     border:none;
     text-align:center;
-    font-size:4vw;
-    box-shadow: 0 0 10px #ff4d88, 0 0 20px #ff99c8;
-    background:rgba(255,255,255,0.2);
-    color:white;
+    font-size:16px;
+    box-shadow:0 0 10px #ff4d88;
 }
 
 .glowHeart{
-    font-size:15vw;
+    font-size:60px;
     cursor:pointer;
     animation:glow 1.5s infinite alternate;
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
 }
 
 @keyframes glow{
-    from{ text-shadow:0 0 5vw white; }
-    to{ text-shadow:0 0 10vw white, 0 0 15vw #ff4d88; }
+    from{ text-shadow:0 0 10px white; }
+    to{ text-shadow:0 0 30px #ff4d88; }
 }
 
-.hoverGlow{
-    cursor:pointer;
-    animation: hoverGlow 1.5s infinite alternate;
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
-}
-
-h1, h2{
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
-}
-
-#secret{
-    display:none;
-    margin-top:3vw;
-    font-size:4vw;
+.float-msg{
+    position:absolute;
     font-weight:bold;
+    color:black;
+    pointer-events:none;
+    text-shadow:0 0 5px white;
 }
 </style>
 </head>
 <body>
 
-<script>
-// Floating background hearts
-for(let i=0;i<20;i++){
-    let h=document.createElement("div");
-    h.innerHTML="💖";
-    h.className="bg-heart";
-    h.style.left=Math.random()*100+"%";
-    h.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(h);
-}
-</script>
-
+<!-- WELCOME -->
 <div id="welcome" class="screen active">
-    <h1 class="hoverGlow">Hello Pookie 💖</h1>
+    <h1>Hello 💖</h1>
     <button onclick="goLock()">Enter</button>
 </div>
 
+<!-- LOCK -->
 <div id="lock" class="screen">
-    <h2 class="hoverGlow">Enter Password 💌</h2>
-    <input type="password" id="password" placeholder="XXXXXXXX">
+    <h2>Enter Password</h2>
+    <input type="password" id="password">
     <button onclick="unlock()">Unlock</button>
     <p id="error"></p>
     <button onclick="back('welcome')">Back</button>
 </div>
 
-<div id="gameScreen" class="screen">
-    <h2 class="hoverGlow">Click 5 Hearts 💖</h2>
-    <button onclick="back('lock')">Back</button>
-</div>
-
+<!-- MESSAGE -->
 <div id="intro" class="screen">
-    <h2 style="font-size:4vw">
+    <h2>
     I don’t know when it happened… <br><br>
-    but somewhere between our conversations, 
-    <span class="hoverGlow" onclick="miniSecret('You always make me smile 😊')">
-    you became my favorite part</span> of the day. 💖 <br><br>
+    but somewhere between our conversations, <br>
+    you became my favorite part of the day. 💖 <br><br>
     Being around you feels calm, warm, and safe. <br>
-    So yeah… I’d really love to call YOU mine.<br><br>
-        ❤️I LOVE YOU DHYANA❤️
+    So yeah… I’d really love to call you mine. <br><br>
+       💖 I LOVE YOU POOKIE 💖
     </h2>
     <button onclick="ask()">Continue</button>
-    <button onclick="back('gameScreen')">Back</button>
 </div>
 
+<!-- QUESTION -->
 <div id="question" class="screen">
-    <h2 class="hoverGlow">Will you be my Valentine? 💖</h2>
+    <h2>Will you be my Valentine? 💖</h2>
     <button onclick="yes()">Yes</button>
     <button id="noBtn" onclick="runNo()">No</button>
-    <p id="drama" style="font-weight:bold;"></p>
-    <button onclick="back('intro')">Back</button>
+    <p id="drama"></p>
 </div>
 
+<!-- YES -->
 <div id="yesScreen" class="screen">
-    <h2 style="font-size:4vw">
+    <h2>
     You just unlocked lifetime access to me. 😌💖 <br><br>
     Free subscription includes:<br>
     - Random good morning texts<br>
@@ -180,136 +129,152 @@ for(let i=0;i<20;i++){
     - Permanent emotional attachment<br><br>
     Non-refundable. No returns.
     </h2>
-    <div class="glowHeart">💖</div>
-     <div id="secret">
+
+    <div class="glowHeart" onclick="showSecret()">💖</div>
+    <div id="secret" style="display:none; font-weight:bold;">
         I cried that day because I realised how much you matter.
     </div>
-    <button onclick="back('question')">Back</button>
 </div>
-
+<!-- NO -->
 <div id="noScreen" class="screen">
-    <h2 style="font-size:4vw; font-weight:bold;">
+    <h2>
     That’s okay.<br><br>
     I just wanted to be honest about how I feel.<br>
-    You still mean a lot to me and I’m grateful you’re in my life.<br><br>
-        No presssure on you but...... let me wait, please ?
+    You still mean a lot to me,<br>
+    and I’m grateful you’re in my life. <br>
+        I no pressure on you but..... let me wait for that someday ?
     </h2>
-    <button onclick="back('question')">Back</button>
 </div>
 
-<script>
-let heartsClicked=0;
-let noCount=0;
-let unlocked=false;
 
-const secretMessages=[
-"i really miss you here",
+<script>
+
+let unlocked=false;
+let noCount=0;
+
+const tapMessages=[
+"You matter more than you know.",
+"You make my heart skip beats 💓",
+"Every moment with you feels magical ✨",
 "You make everything feel softer 💗",
 "My heart lowkey chose you.",
 "You’re my safest place.",
 "I act chill but I adore you.",
 "You’re my favorite notification.",
-"If I could pause time when i'm with you"
+"You’re my calm in chaos.",
+"I’m grateful for you every day."
 ];
 
 function switchScreen(hide,show){
-    document.getElementById(hide).classList.remove("active");
-    document.getElementById(show).classList.add("active");
+document.getElementById(hide).classList.remove("active");
+document.getElementById(show).classList.add("active");
 }
 
-function back(screenId){
-    switchScreen(document.querySelector('.screen.active').id, screenId);
+function back(id){
+switchScreen(document.querySelector('.screen.active').id,id);
 }
 
 function goLock(){
-    switchScreen("welcome","lock");
+switchScreen("welcome","lock");
 }
 
 function unlock(){
-    if(document.getElementById("password").value==="31122025"){
-        unlocked=true;
-        switchScreen("lock","gameScreen");
-        createHearts();
-    } else {
-        document.getElementById("error").innerText="Wrong date 👀";
-    }
+if(document.getElementById("password").value==="31122025"){
+unlocked=true;
+switchScreen("lock","intro");
+}else{
+document.getElementById("error").innerText="Wrong date 👀";
 }
-
-function createHearts(){
-    for(let i=0;i<12;i++){
-        let heart=document.createElement("div");
-        heart.innerHTML="💖";
-        heart.style.position="absolute";
-        heart.style.top=Math.random()*80+"%";
-        heart.style.left=Math.random()*80+"%";
-        heart.style.cursor="pointer";
-
-        heart.onclick=function(){
-            heartsClicked++;
-            heart.remove();
-            if(heartsClicked===5){
-                switchScreen("gameScreen","intro");
-            }
-        }
-        document.body.appendChild(heart);
-    }
 }
 
 function ask(){
-    switchScreen("intro","question");
+switchScreen("intro","question");
 }
 
 function yes(){
-    switchScreen("question","yesScreen");
+switchScreen("question","yesScreen");
+confetti();
 }
 
 function runNo(){
-    switchScreen("question","noScreen");
+    let btn=document.getElementById("noBtn");
+    noCount++;
+
+    if(noCount<=10){
+        btn.classList.add("vibrate");
+
+        btn.style.position="absolute";
+        btn.style.top=Math.random()*80+"%";
+        btn.style.left=Math.random()*80+"%";
+        btn.style.transform="scale("+(1-noCount*0.07)+")";
+
+        document.getElementById("drama").innerText=
+        ["Are you sure? 🥺",
+         "Think again 😭",
+         "Don’t break my heart",
+         "Be nice 😔",
+         "Still no?",
+         "Come onnn",
+         "You’re hurting me",
+         "Last chance 👀",
+         "Okay okay wait",
+         "Fine… I tried."][noCount-1];
+    }
+
+    if(noCount===11){
+        switchScreen("question","noScreen");
+    }
 }
 
-function miniSecret(text){
-    let s=document.createElement("div");
-    s.className="float-msg";
-    s.innerText=text;
-    s.style.left=Math.random()*80+"%";
-    s.style.top="50%";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),3000);
+function confetti(){
+for(let i=0;i<40;i++){
+let c=document.createElement("div");
+c.innerHTML=["💖","✨","🌸"][Math.floor(Math.random()*3)];
+c.style.position="absolute";
+c.style.left="50%";
+c.style.top="50%";
+c.style.fontSize="25px";
+c.style.transform=`translate(${Math.random()*500-250}px,${Math.random()*500-250}px)`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),1500);
+}
 }
 
-// Tap anywhere AFTER unlock
+function showSecret(){
+document.getElementById("secret").style.display="block";
+}
+
 document.body.addEventListener("click",function(e){
 
-    if(!unlocked) return;
+if(!unlocked) return;
+if(e.target.tagName==="BUTTON" || e.target.tagName==="INPUT") return;
 
-    if(e.target.tagName.toLowerCase()==="button" ||
-       e.target.tagName.toLowerCase()==="input") return;
+let msg=tapMessages[Math.floor(Math.random()*tapMessages.length)];
 
-    let msg=secretMessages[Math.floor(Math.random()*secretMessages.length)];
+let div=document.createElement("div");
+div.className="float-msg";
+div.innerText=msg;
+div.style.left=e.pageX+"px";
+div.style.top=e.pageY+"px";
 
-    let secretDiv=document.createElement("div");
-    secretDiv.className="float-msg";
-    secretDiv.innerText=msg;
-    secretDiv.style.left=e.pageX+"px";
-    secretDiv.style.top=e.pageY+"px";
+document.body.appendChild(div);
 
-    document.body.appendChild(secretDiv);
+let top=e.pageY;
+let opacity=1;
 
-    let top=e.pageY;
-    let opacity=1;
+let interval=setInterval(()=>{
+top-=1;
+opacity-=0.02;
+div.style.top=top+"px";
+div.style.opacity=opacity;
+if(opacity<=0){
+div.remove();
+clearInterval(interval);
+}
+},20);
 
-    let interval=setInterval(()=>{
-        top-=1;
-        opacity-=0.02;
-        secretDiv.style.top=top+"px";
-        secretDiv.style.opacity=opacity;
-
-        if(opacity<=0){
-            secretDiv.remove();
-            clearInterval(interval);
-        }
-    },20);
 });
+
 </script>
 </body>
 </html>
