@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For DHYANA 💖</title>
 
 <style>
@@ -41,14 +40,10 @@ body{
     position:absolute;
     font-size:4vw;
     opacity:0.8;
-    animation:floatMsg 6s linear forwards;
+    font-weight:bold; /* bold floating messages */
 }
 
-@keyframes floatMsg{
-    0%{transform:translateY(100vh);}
-    100%{transform:translateY(-10vh);}
-}
-
+/* Screens */
 .screen{
     display:none;
     position:absolute;
@@ -124,6 +119,7 @@ h1, h2{
     display:none;
     margin-top:3vw;
     font-size:4vw;
+    font-weight:bold; /* bold secret message */
 }
 
 .vibrate{
@@ -222,22 +218,19 @@ for(let i=0;i<20;i++){
     Non-refundable. No returns.
     </h2>
 
-    <div class="glowHeart" onclick="showSecret()">💖</div>
-    <div id="secret" style="font-weight:bold;">
-        I cried that day because I realised how much you matter. <br>
-        You really mean the world to me 
-    </div>
+    <div class="glowHeart">💖</div>
+    <div id="secret" style="font-weight:bold;"></div>
     <button onclick="back('question')">Back</button>
 </div>
 
 <!-- NO -->
 <div id="noScreen" class="screen">
-    <h2 style="font-size:4vw">
+    <h2 style="font-size:4vw; font-weight:bold;">
     That’s okay.<br><br>
     I just wanted to be honest about how I feel.<br>
     You still mean a lot to me,<br>
     and I’m grateful you’re in my life. <br>
-      I no pressure on you but..... let me wait for that someday ?
+    I no pressure on you but..... let me wait for that someday ?
     </h2>
     <button onclick="back('question')">Back</button>
 </div>
@@ -247,6 +240,15 @@ let heartsClicked=0;
 let noCount=0;
 let comboSequence = [];
 const secretCombo = [1,3,2,5,4];
+const secretMessages = [
+    "I cried that day because I realised how much you matter.",
+    "You make my heart skip beats 💓",
+    "Every moment with you feels magical ✨",
+    "You’re my favorite part of the day 💖",
+    "Thinking of you always makes me smile 😊",
+    "You’re the reason I overthink in the best way 🥰",
+    "Forever grateful for you 🌸"
+];
 
 function switchScreen(hide,show){
     document.getElementById(hide).classList.remove("active");
@@ -368,11 +370,6 @@ function runNo(){
     }
 }
 
-function showSecret(){
-    document.getElementById("secret").style.display="block";
-    confettiBlast();
-}
-
 function confettiBlast(){
     for(let i=0;i<50;i++){
         let c=document.createElement("div");
@@ -390,12 +387,46 @@ function confettiBlast(){
 function miniSecret(text){
     let s=document.createElement("div");
     s.className="float-msg";
-    s.innerHTML=text;
+    s.innerText=text;
     s.style.left=Math.random()*80+"%";
     s.style.top="50%";
+    s.style.color="black";
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),4000);
 }
+
+// NEW: Tap anywhere for random secret messages
+document.body.addEventListener("click", function(e){
+    if(e.target.tagName.toLowerCase() === "button" || e.target.tagName.toLowerCase() === "input") return;
+
+    let msg = secretMessages[Math.floor(Math.random()*secretMessages.length)];
+
+    let secretDiv = document.createElement("div");
+    secretDiv.className = "float-msg";
+    secretDiv.innerText = msg;
+    secretDiv.style.left = e.pageX + "px";
+    secretDiv.style.top = e.pageY + "px";
+    secretDiv.style.color = "black";
+    secretDiv.style.fontWeight = "bold";
+    secretDiv.style.zIndex = 2000;
+    document.body.appendChild(secretDiv);
+
+    // Animate upward and fade
+    let top = e.pageY;
+    let opacity = 1;
+    let interval = setInterval(()=>{
+        top -= 1;
+        opacity -= 0.02;
+        secretDiv.style.top = top + "px";
+        secretDiv.style.opacity = opacity;
+        if(opacity <= 0){
+            secretDiv.remove();
+            clearInterval(interval);
+        }
+    },20);
+
+    confettiBlast();
+});
 </script>
 </body>
 </html>
