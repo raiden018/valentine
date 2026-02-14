@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For DHYANA 💖</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    text-align:center;
+    color:white;
+    animation:gradientShift 10s infinite alternate;
+    background:linear-gradient(-45deg,#ff9ec4,#ff80bf,#ffb6da,#ffcce6);
+    background-size:400% 400%;
+}
+
+@keyframes gradientShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Floating background hearts */
+.bg-heart{
+    position:absolute;
+    font-size:8vw;
+    animation:floatUp 8s linear infinite;
+    opacity:0.7;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(100vh) scale(1);}
+    100%{transform:translateY(-10vh) scale(1.5);}
+}
+
+/* Floating messages */
+.float-msg{
+    position:absolute;
+    font-size:4vw;
+    opacity:0.8;
+    animation:floatMsg 6s linear forwards;
+}
+
+@keyframes floatMsg{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+.screen{
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:5vw;
+}
+
+.active{ display:flex; }
+
+button{
+    padding:4vw 8vw;
+    font-size:4vw;
+    border:none;
+    border-radius:10vw;
+    background:white;
+    color:#ff4d88;
+    cursor:pointer;
+    margin:2vw;
+    transition:0.3s;
+    min-width:30vw;
+    box-shadow: 0 0 10px #ff4d88, 0 0 20px #ff99c8;
+}
+
+button:hover{ transform:scale(1.1); }
+
+input{
+    padding:2vw;
+    border-radius:5vw;
+    border:none;
+    text-align:center;
+    font-size:4vw;
+    box-shadow: 0 0 10px #ff4d88, 0 0 20px #ff99c8;
+    background:rgba(255,255,255,0.2);
+    color:white;
+}
+
+/* Glowing heart */
+.glowHeart{
+    font-size:15vw;
+    cursor:pointer;
+    animation:glow 1.5s infinite alternate;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
+}
+
+@keyframes glow{
+    from{ text-shadow:0 0 5vw white; }
+    to{ text-shadow:0 0 10vw white, 0 0 15vw #ff4d88; }
+}
+
+.hoverGlow{
+    cursor:pointer;
+    animation: hoverGlow 1.5s infinite alternate;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
+}
+
+@keyframes hoverGlow{
+    0%{color:white;}
+    50%{color:#ffe6f0;}
+    100%{color:white;}
+}
+
+h1, h2{
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff4d88, 0 0 30px #ff99c8;
+}
+
+#secret{
+    display:none;
+    margin-top:3vw;
+    font-size:4vw;
+}
+
+.vibrate{
+    animation:vibrate 0.2s infinite;
+}
+
+@keyframes vibrate{
+    0%{transform:translate(1px,1px);}
+    25%{transform:translate(-1px,1px);}
+    50%{transform:translate(-1px,-1px);}
+    75%{transform:translate(1px,-1px);}
+    100%{transform:translate(1px,1px);}
+}
+
+/* Heart trail */
+.trail{
+    position:absolute;
+    font-size:4vw;
+    opacity:0.8;
+    pointer-events:none;
+    animation:trailAnim 0.8s forwards;
+}
+
+@keyframes trailAnim{
+    0%{opacity:1; transform:translate(0,0) scale(1);}
+    100%{opacity:0; transform:translate(-5vw,-8vh) scale(0.5);}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating background hearts -->
+<script>
+for(let i=0;i<20;i++){
+    let h=document.createElement("div");
+    h.innerHTML="💖";
+    h.className="bg-heart";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=(5+Math.random()*5)+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+<!-- OPENING -->
+<div id="welcome" class="screen active">
+    <h1 class="hoverGlow">Hello Pookie 💖</h1>
+    <button onclick="goLock()">Enter</button>
+</div>
+
+<!-- PASSWORD -->
+<div id="lock" class="screen">
+    <h2 class="hoverGlow">Enter Password 💌</h2>
+    <input type="password" id="password" placeholder="XXXXXXXX">
+    <button onclick="unlock()">Unlock</button>
+    <p id="error"></p>
+    <button onclick="back('welcome')">Back</button>
+</div>
+
+<!-- HEART GAME -->
+<div id="gameScreen" class="screen">
+    <h2 class="hoverGlow">Click 5 Hearts 💖</h2>
+    <button onclick="back('lock')">Back</button>
+</div>
+
+<!-- MESSAGE -->
+<div id="intro" class="screen">
+    <h2 style="font-size:4vw">
+    I don’t know when it happened… <br><br>
+    but somewhere between our conversations, <span class="hoverGlow" onclick="miniSecret('You always make me smile 😊')">you became my favorite part</span> of the day. 💖 <br><br>
+    Being around you feels calm, warm, and safe. <br>
+    So yeah… I’d really love to call YOU mine.<br.></br.>
+    ❤️I LOVE YOU DHYANA❤️
+    </h2>
+    <button onclick="ask()">Continue</button>
+    <button onclick="back('gameScreen')">Back</button>
+</div>
+
+<!-- QUESTION -->
+<div id="question" class="screen">
+    <h2 class="hoverGlow">Will you be my Valentine? 💖</h2>
+    <button onclick="yes()">Yes</button>
+    <button id="noBtn" onclick="runNo()">No</button>
+    <p id="drama"></p>
+    <button onclick="back('intro')">Back</button>
+</div>
+
+<!-- YES -->
+<div id="yesScreen" class="screen">
+    <h2 style="font-size:4vw">
+    You just unlocked lifetime access to me. 😌💖 <br><br>
+    Free subscription includes:<br>
+    - Random good morning texts<br>
+    - Overthinking about you<br>
+    - Unlimited teasing<br>
+    - Permanent emotional attachment<br><br>
+    Non-refundable. No returns.
+    </h2>
+
+    <div class="glowHeart" onclick="showSecret()">💖</div>
+    <div id="secret">
+        I cried that day because I realised how much you matter. <br>
+      You really mean the world to me 
+    </div>
+    <button onclick="back('question')">Back</button>
+</div>
+
+<!-- NO -->
+<div id="noScreen" class="screen">
+    <h2 style="font-size:4vw">
+    That’s okay.<br><br>
+    I just wanted to be honest about how I feel.<br>
+    You still mean a lot to me,<br>
+    and I’m grateful you’re in my life. <br>
+      I no pressure on you but..... let me wait for that someday ?
+    </h2>
+    <button onclick="back('question')">Back</button>
+</div>
+
+<script>
+let heartsClicked=0;
+let noCount=0;
+let comboSequence = [];
+const secretCombo = [1,3,2,5,4];
+
+function switchScreen(hide,show){
+    document.getElementById(hide).classList.remove("active");
+    document.getElementById(show).classList.add("active");
+}
+
+function back(screenId){
+    switchScreen(document.querySelector('.screen.active').id, screenId);
+}
+
+function goLock(){
+    switchScreen("welcome","lock");
+}
+
+function unlock(){
+    if(document.getElementById("password").value==="31122025"){
+        switchScreen("lock","gameScreen");
+        createHearts();
+        floatingMessages();
+    } else {
+        document.getElementById("error").innerText="Wrong date 👀";
+    }
+}
+
+function createHearts(){
+    for(let i=0;i<12;i++){
+        let heart=document.createElement("div");
+        heart.innerHTML="💖";
+        heart.style.position="absolute";
+        heart.style.top=Math.random()*80+"%";
+        heart.style.left=Math.random()*80+"%";
+        heart.style.cursor="pointer";
+
+        let index = i+1;
+        heart.onclick=function(e){
+            heartsClicked++;
+            comboSequence.push(index);
+            createTrail(e.pageX, e.pageY);
+            heart.remove();
+            checkCombo();
+            if(heartsClicked===5){
+                switchScreen("gameScreen","intro");
+            }
+        }
+        document.body.appendChild(heart);
+    }
+}
+
+function checkCombo(){
+    if(comboSequence.length>=5){
+        let correct = comboSequence.slice(-5).every((val,i)=> val===secretCombo[i]);
+        if(correct){
+            miniSecret("🎉 Secret combo unlocked! 🎉");
+        }
+    }
+}
+
+function createTrail(x, y){
+    for(let i=0;i<5;i++){
+        let t=document.createElement("div");
+        t.innerHTML=["💖","✨","💫"][Math.floor(Math.random()*3)];
+        t.className="trail";
+        t.style.left=x+Math.random()*10-5+"px";
+        t.style.top=y+Math.random()*10-5+"px";
+        document.body.appendChild(t);
+        setTimeout(()=>t.remove(),800);
+    }
+}
+
+function floatingMessages(){
+    setInterval(()=>{
+        let msg=document.createElement("div");
+        msg.className="float-msg";
+        msg.innerHTML=["💌 love you","🥰","💖","🌸"][Math.floor(Math.random()*4)];
+        msg.style.left=Math.random()*90+"%";
+        msg.style.top="100%";
+        document.body.appendChild(msg);
+        setTimeout(()=>msg.remove(),6000);
+    },800);
+}
+
+function ask(){
+    switchScreen("intro","question");
+}
+
+function yes(){
+    switchScreen("question","yesScreen");
+    confettiBlast();
+}
+
+function runNo(){
+    let btn=document.getElementById("noBtn");
+    noCount++;
+
+    if(noCount<=10){
+        btn.classList.add("vibrate");
+        btn.style.position="absolute";
+        btn.style.top=Math.random()*80+"%";
+        btn.style.left=Math.random()*80+"%";
+        btn.style.transform="scale("+(1-noCount*0.07)+")";
+        document.getElementById("drama").innerText=
+        ["Are you sure? 🥺","Think again 😭","Don’t break my heart","Be nice 😔",
+        "Still no?","Come onnn","You’re hurting me","Last chance 👀",
+        "Okay okay wait","Fine… I tried."][noCount-1];
+    }
+
+    if(noCount===11){
+        switchScreen("question","noScreen");
+    }
+}
+
+function showSecret(){
+    document.getElementById("secret").style.display="block";
+    confettiBlast();
+}
+
+function confettiBlast(){
+    for(let i=0;i<50;i++){
+        let c=document.createElement("div");
+        c.innerHTML=["💖","✨","💫","🌸"][Math.floor(Math.random()*4)];
+        c.style.position="absolute";
+        c.style.left="50%";
+        c.style.top="50%";
+        c.style.fontSize=(6+Math.random()*6)+"vw";
+        c.style.transform=`translate(${Math.random()*80-40}vw,${Math.random()*80-40}vh)`;
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),1500);
+    }
+}
+
+function miniSecret(text){
+    let s=document.createElement("div");
+    s.className="float-msg";
+    s.innerHTML=text;
+    s.style.left=Math.random()*80+"%";
+    s.style.top="50%";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),4000);
+}
+</script>
+</body>
+</html>
