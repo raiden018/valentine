@@ -11,7 +11,7 @@ body{
     font-family:Arial, sans-serif;
     overflow:hidden;
     text-align:center;
-    color:white;
+    color:black;
     animation:gradientShift 10s infinite alternate;
     background:linear-gradient(-45deg,#ff9ec4,#ff80bf,#ffb6da,#ffcce6);
     background-size:400% 400%;
@@ -26,7 +26,7 @@ body{
 /* Floating background hearts */
 .bg-heart{
     position:absolute;
-    font-size:8vw;
+    font-size:4vw;
     animation:floatUp 8s linear infinite;
     opacity:0.7;
 }
@@ -225,7 +225,7 @@ for(let i=0;i<20;i++){
     <div class="glowHeart" onclick="showSecret()">💖</div>
     <div id="secret">
         I cried that day because I realised how much you matter. <br>
-      You really mean the world to me 
+        You really mean the world to me 
     </div>
     <button onclick="back('question')">Back</button>
 </div>
@@ -262,7 +262,7 @@ function goLock(){
 }
 
 function unlock(){
-    if(document.getElementById("password").value==="XXXXXXXX"){
+    if(document.getElementById("password").value==="31122025"){
         switchScreen("lock","gameScreen");
         createHearts();
         floatingMessages();
