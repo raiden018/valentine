@@ -186,7 +186,7 @@ for(let i=0;i<20;i++){
 <div id="lock" class="screen">
     <button class="backBtn" onclick="switchScreen('lock','welcome')">←</button>
     <h2>Enter Password 💌</h2>
-    <input type="password" id="password" placeholder="An Afternoon Woven With Petals and Wind">
+    <input type="password" id="password" placeholder="Hint- Our first meet">
     <button onclick="unlock()">Unlock</button>
     <p id="error"></p>
 </div>
@@ -276,7 +276,7 @@ function switchScreen(hide,show){
 function goLock(){ switchScreen("welcome","lock"); }
 
 function unlock(){
-    if(document.getElementById("password").value==="31122025"){
+    if(document.getElementById("password").value==="21062025"){
         unlocked=true;
         switchScreen("lock","gameScreen");
         createHearts();
