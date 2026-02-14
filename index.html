@@ -262,7 +262,7 @@ function goLock(){
 }
 
 function unlock(){
-    if(document.getElementById("password").value==="31122025"){
+    if(document.getElementById("password").value==="XXXXXXXX"){
         switchScreen("lock","gameScreen");
         createHearts();
         floatingMessages();
@@ -318,14 +318,24 @@ function createTrail(x, y){
 
 function floatingMessages(){
     setInterval(()=>{
-        let msg=document.createElement("div");
-        msg.className="float-msg";
-        msg.innerHTML=["💌 love you","🥰","💖","🌸"][Math.floor(Math.random()*4)];
-        msg.style.left=Math.random()*90+"%";
-        msg.style.top="100%";
+        let msg = document.createElement("div");
+        msg.className = "float-msg";
+        msg.innerHTML = ["💌 love you","🥰","💖","🌸"][Math.floor(Math.random()*4)];
+        msg.style.left = Math.random()*80 + "%";
+        msg.style.top = "100%"; 
+        msg.style.zIndex = 1000; 
         document.body.appendChild(msg);
-        setTimeout(()=>msg.remove(),6000);
-    },800);
+
+        let top = 100;
+        let interval = setInterval(()=>{
+            top -= 1; 
+            msg.style.top = top + "vh";
+            if(top < -10){ 
+                msg.remove();
+                clearInterval(interval);
+            }
+        }, 50); 
+    }, 800); 
 }
 
 function ask(){
@@ -350,7 +360,7 @@ function runNo(){
         document.getElementById("drama").innerText=
         ["Are you sure? 🥺","Think again 😭","Don’t break my heart","Be nice 😔",
         "Still no?","Come onnn","You’re hurting me","Last chance 👀",
-        "Okay okay wait","Fine… I tried."][noCount-1];
+        "Okay okay wait","Fine…😶👍."][noCount-1];
     }
 
     if(noCount===11){
