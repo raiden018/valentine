@@ -60,9 +60,9 @@ body{
 .active{ display:flex; }
 
 button{
-    padding:12px 25px;
+    padding:15px 35px;
     font-size:16px;
-    border:2px solid black;
+    border:4px solid black;
     border-radius:25px;
     background:white;
     color:#ff4d88;
@@ -142,7 +142,7 @@ button:hover{
 <script>
 for(let i=0;i<20;i++){
     let h=document.createElement("div");
-    h.innerHTML="💖","🎀","🌻","✨","💗";
+    h.innerHTML="💖";
     h.className="bg-heart";
     h.style.left=Math.random()*100+"%";
     h.style.animationDuration=(5+Math.random()*5)+"s";
@@ -165,7 +165,7 @@ for(let i=0;i<20;i++){
 
 <div id="gameScreen" class="screen">
     <button class="backBtn" onclick="switchScreen('gameScreen','lock')">←</button>
-    <h2>Click 5 Hearts 💖</h2>
+    <h2>Tap on Hearts 💗</h2>
 </div>
 
 <div id="intro" class="screen">
@@ -258,7 +258,7 @@ function createHearts(){
     heartsClicked=0;
     for(let i=0;i<12;i++){
         let heart=document.createElement("div");
-        heart.innerHTML="💖","🎀","🌻","✨","💗";
+        heart.innerHTML="💗";
         heart.style.position="absolute";
         heart.style.top=Math.random()*80+"%";
         heart.style.left=Math.random()*80+"%";
@@ -267,7 +267,7 @@ function createHearts(){
         heart.onclick=function(){
             heart.remove();
             heartsClicked++;
-            if(heartsClicked===5){
+            if(heartsClicked===8){
                 switchScreen("gameScreen","intro");
             }
         }
