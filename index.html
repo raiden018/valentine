@@ -10,15 +10,32 @@ body{
     font-family:Arial, sans-serif;
     overflow:hidden;
     text-align:center;
+    color:ff2e8a;
+    text-shadow:0 0 10px #ff99cc, 0 0 20px #ff66b3;
+    font-weight:bold;
     animation:gradientShift 10s infinite alternate;
-    background:linear-gradient(-45deg,#ff9ec4,#ff80bf,#ffb6da,#ffcce6);
+    background:linear-gradient(-45deg,#ff9ec4,#ffcce6,#ff80bf,#ffd6eb);
     background-size:400% 400%;
 }
 
+/* Gradient animation */
 @keyframes gradientShift{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
+}
+
+/* Floating background hearts */
+.bg-heart{
+    position:absolute;
+    font-size:20px;
+    animation:floatUp 8s linear infinite;
+    opacity:0.7;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(100vh) scale(1);}
+    100%{transform:translateY(-10vh) scale(1.5);}
 }
 
 .screen{
@@ -31,7 +48,7 @@ body{
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    padding:5vw;
+    padding:20px;
 }
 
 .active{ display:flex; }
@@ -40,61 +57,84 @@ button{
     padding:12px 25px;
     font-size:16px;
     border:none;
-    border-radius:30px;
+    border-radius:25px;
     background:white;
     color:#ff4d88;
     cursor:pointer;
     margin:10px;
     transition:0.3s;
-    box-shadow:0 0 10px #ff4d88;
 }
 
 button:hover{ transform:scale(1.1); }
 
 input{
     padding:10px;
-    border-radius:20px;
+    border-radius:10px;
     border:none;
     text-align:center;
-    font-size:16px;
-    box-shadow:0 0 10px #ff4d88;
 }
 
 .glowHeart{
-    font-size:60px;
+    font-size:70px;
     cursor:pointer;
     animation:glow 1.5s infinite alternate;
 }
 
 @keyframes glow{
     from{ text-shadow:0 0 10px white; }
-    to{ text-shadow:0 0 30px #ff4d88; }
+    to{ text-shadow:0 0 40px white, 0 0 70px #ff4d88; }
 }
 
-.float-msg{
-    position:absolute;
-    font-weight:bold;
-    color:black;
-    pointer-events:none;
-    text-shadow:0 0 5px white;
+#secret{
+    display:none;
+    margin-top:20px;
+    font-size:18px;
+}
+
+.vibrate{
+    animation:vibrate 0.2s infinite;
+}
+
+@keyframes vibrate{
+    0%{transform:translate(1px,1px);}
+    25%{transform:translate(-1px,1px);}
+    50%{transform:translate(-1px,-1px);}
+    75%{transform:translate(1px,-1px);}
+    100%{transform:translate(1px,1px);}
 }
 </style>
 </head>
 <body>
 
-<!-- WELCOME -->
+<!-- Floating hearts background -->
+<script>
+for(let i=0;i<20;i++){
+    let h=document.createElement("div");
+    h.innerHTML="💖";
+    h.className="bg-heart";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=(5+Math.random()*5)+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+<!-- OPENING -->
 <div id="welcome" class="screen active">
-    <h1>Hello 💖</h1>
+    <h1>Hello Pookie 💖</h1>
     <button onclick="goLock()">Enter</button>
 </div>
 
-<!-- LOCK -->
+<!-- PASSWORD -->
 <div id="lock" class="screen">
-    <h2>Enter Password</h2>
-    <input type="password" id="password">
+    <h2>Enter Password 💌</h2>
+    <input type="password" id="password" placeholder="00000000">
     <button onclick="unlock()">Unlock</button>
     <p id="error"></p>
-    <button onclick="back('welcome')">Back</button>
+</div>
+
+<!-- HEART GAME -->
+<div id="gameScreen" class="screen">
+    <h2>Click 5 Hearts 💖</h2>
 </div>
 
 <!-- MESSAGE -->
@@ -165,35 +205,51 @@ const tapMessages=[
 "I’m grateful for you every day."
 ];
 
-function switchScreen(hide,show){
-document.getElementById(hide).classList.remove("active");
-document.getElementById(show).classList.add("active");
-}
 
-function back(id){
-switchScreen(document.querySelector('.screen.active').id,id);
+function switchScreen(hide,show){
+    document.getElementById(hide).classList.remove("active");
+    document.getElementById(show).classList.add("active");
 }
 
 function goLock(){
-switchScreen("welcome","lock");
+    switchScreen("welcome","lock");
 }
 
 function unlock(){
-if(document.getElementById("password").value==="31122025"){
-unlocked=true;
-switchScreen("lock","intro");
-}else{
-document.getElementById("error").innerText="Wrong date 👀";
+    if(document.getElementById("password").value==="31122025"){
+        switchScreen("lock","gameScreen");
+        createHearts();
+    } else {
+        document.getElementById("error").innerText="Wrong date 👀";
+    }
 }
+
+function createHearts(){
+    for(let i=0;i<12;i++){
+        let heart=document.createElement("div");
+        heart.innerHTML="💖";
+        heart.style.position="absolute";
+        heart.style.top=Math.random()*80+"%";
+        heart.style.left=Math.random()*80+"%";
+        heart.style.cursor="pointer";
+
+        heart.onclick=function(){
+            heart.remove();
+            heartsClicked++;
+            if(heartsClicked===5){
+                switchScreen("gameScreen","intro");
+            }
+        }
+        document.body.appendChild(heart);
+    }
 }
 
 function ask(){
-switchScreen("intro","question");
+    switchScreen("intro","question");
 }
 
 function yes(){
-switchScreen("question","yesScreen");
-confetti();
+    switchScreen("question","yesScreen");
 }
 
 function runNo(){
