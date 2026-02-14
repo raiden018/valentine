@@ -282,18 +282,33 @@ function yes(){
     confetti();
 }
 
-function runNo(){
-    let btn=document.getElementById("noBtn");
-    noCount++;
+let noClickCount = 0;
 
-    btn.classList.add("vibrate");
-    btn.style.position="absolute";
-    btn.style.top=Math.random()*80+"%";
-    btn.style.left=Math.random()*80+"%";
+const dramaLines = [
+    "Wait… excuse me? 😐",
+    "You sure you pressed the right button? 🤨",
+    "Try again. I believe in you. 💀",
+    "That button is clearly malfunctioning.",
+    "No is not in the system.",
+    "Are you testing my emotional stability?",
+    "This is illegal behavior.",
+    "Reconsider. I’m fragile.",
+    "You’re playing with fire now.",
+    "Final warning. Choose wisely. 😌"
+];
 
-    if(noCount===11){
-        switchScreen("question","noScreen");
+function runNo() {
+    const drama = document.getElementById("drama");
+
+    if (noClickCount < 10) {
+        drama.innerText = dramaLines[noClickCount];
+        noClickCount++;
+    } else {
+        switchScreen("question", "noScreen");
     }
+
+    drama.style.fontWeight = "normal";
+    drama.style.marginTop = "20px";
 }
 
 function confetti(){
