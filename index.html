@@ -62,22 +62,26 @@ body{
 button{
     padding:12px 25px;
     font-size:16px;
-    border:none;
+    border:2px solid black;   
     border-radius:25px;
     background:white;
     color:#ff4d88;
     cursor:pointer;
     margin:10px;
-    transition:0.3s;
+    transition:0.3s ease;
+    
+    box-shadow:
+        0 0 8px #ff4d88,
+        0 0 16px #ff99cc,
+        0 0 24px #ff66b3;
 }
 
-button:hover{ transform:scale(1.1); }
-
-input{
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    text-align:center;
+button:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 12px #ff4d88,
+        0 0 25px #ff66b3,
+        0 0 40px #ff1493;
 }
 
 .glowHeart{
